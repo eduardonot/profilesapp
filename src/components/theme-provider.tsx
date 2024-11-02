@@ -1,3 +1,4 @@
+import { hexToRgb } from "@/helpers/hexToRgb";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "dark" | "light" | "system";
@@ -66,43 +67,55 @@ export function ThemeProvider({
     }
     root.classList.add(theme);
 
-    root.style.setProperty("-background", colors[0]);
-    root.style.setProperty("-foreground", colors[10]);
+    root.style.setProperty("--color-50", hexToRgb(colors[0]));
+    root.style.setProperty("--color-100", hexToRgb(colors[1]));
+    root.style.setProperty("--color-200", hexToRgb(colors[2]));
+    root.style.setProperty("--color-300", hexToRgb(colors[3]));
+    root.style.setProperty("--color-400", hexToRgb(colors[4]));
+    root.style.setProperty("--color-500", hexToRgb(colors[5]));
+    root.style.setProperty("--color-600", hexToRgb(colors[6]));
+    root.style.setProperty("--color-700", hexToRgb(colors[7]));
+    root.style.setProperty("--color-800", hexToRgb(colors[8]));
+    root.style.setProperty("--color-900", hexToRgb(colors[9]));
+    root.style.setProperty("--color-950", hexToRgb(colors[10]));
 
-    root.style.setProperty("-card", colors[1]);
-    root.style.setProperty("-card-foreground", colors[9]);
+    root.style.setProperty("--background", hexToRgb(colors[0]));
+    root.style.setProperty("--foreground", hexToRgb(colors[10]));
 
-    root.style.setProperty("-popover", colors[2]);
-    root.style.setProperty("-popover-foreground", colors[8]);
+    root.style.setProperty("--card", hexToRgb(colors[0]));
+    root.style.setProperty("--card-foreground", hexToRgb(colors[10]));
 
-    root.style.setProperty("-primary", colors[3]);
-    root.style.setProperty("-primary-foreground", colors[7]);
+    root.style.setProperty("--popover", hexToRgb(colors[1]));
+    root.style.setProperty("--popover-foreground", hexToRgb(colors[10]));
 
-    root.style.setProperty("-secondary", colors[4]);
-    root.style.setProperty("-secondary-foreground", colors[6]);
+    root.style.setProperty("--primary", hexToRgb(colors[10]));
+    root.style.setProperty("--primary-foreground", hexToRgb(colors[1])); // APLICAR TONALIDADE BRANCA / PRETA DE ACORDO COM COR
 
-    root.style.setProperty("-muted", colors[5]);
-    root.style.setProperty("-muted-foreground", colors[5]);
+    root.style.setProperty("--secondary", hexToRgb(colors[4]));
+    root.style.setProperty("--secondary-foreground", hexToRgb(colors[6]));
 
-    root.style.setProperty("-accent", colors[6]);
-    root.style.setProperty("-accent-foreground", colors[4]);
+    root.style.setProperty("--muted", hexToRgb(colors[0]));
+    root.style.setProperty("--muted-foreground", hexToRgb(colors[10]));
 
-    root.style.setProperty("-destructive", colors[9]);
-    root.style.setProperty("-destructive-foreground", colors[1]);
+    root.style.setProperty("--accent", hexToRgb(colors[6]));
+    root.style.setProperty("--accent-foreground", hexToRgb(colors[4]));
 
-    root.style.setProperty("-border", colors[7]);
-    root.style.setProperty("-input", colors[7]);
+    root.style.setProperty("--destructive", hexToRgb(colors[9]));
+    root.style.setProperty("--destructive-foreground", hexToRgb(colors[1]));
 
-    root.style.setProperty("-ring", colors[10]);
+    root.style.setProperty("--border", hexToRgb(colors[10]));
+    root.style.setProperty("--input", hexToRgb(colors[10]));
 
-    root.style.setProperty("-sidebar-background", colors[0]);
-    root.style.setProperty("-sidebar-foreground", colors[10]);
-    root.style.setProperty("-sidebar-primary", colors[3]);
-    root.style.setProperty("-sidebar-primary-foreground", colors[9]);
-    root.style.setProperty("-sidebar-accent", colors[2]);
-    root.style.setProperty("-sidebar-accent-foreground", colors[8]);
-    root.style.setProperty("-sidebar-border", colors[4]);
-    root.style.setProperty("-sidebar-ring", colors[10]);
+    root.style.setProperty("--ring", hexToRgb(colors[10]));
+
+    root.style.setProperty("--sidebar-background", hexToRgb(colors[0]));
+    root.style.setProperty("--sidebar-foreground", hexToRgb(colors[10]));
+    root.style.setProperty("--sidebar-primary", hexToRgb(colors[3]));
+    root.style.setProperty("--sidebar-primary-foreground", hexToRgb(colors[9]));
+    root.style.setProperty("--sidebar-accent", hexToRgb(colors[2]));
+    root.style.setProperty("--sidebar-accent-foreground", hexToRgb(colors[8]));
+    root.style.setProperty("--sidebar-border", hexToRgb(colors[4]));
+    root.style.setProperty("--sidebar-ring", hexToRgb(colors[10]));
   }, [theme, colors]);
 
   const value = {
