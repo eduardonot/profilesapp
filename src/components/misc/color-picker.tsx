@@ -8,7 +8,7 @@ interface ColorPickerProps {
 
 export const ColorPicker = (props: ColorPickerProps) => {
   const { colors } = useTheme();
-  const [color, setColor] = useState(colors[0]);
+  const [color, setColor] = useState(colors[9]);
 
   useEffect(() => {
     props.onChange(color);
