@@ -4,7 +4,7 @@ import { Button } from "../ui/button";
 import { ModeToggle } from "../misc/btn-toggle-mode";
 import { ColorPicker } from "../misc/color-picker";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { generateGradientFromColor } from "@/helper/colorGradient";
+import { generateGradientFromColor } from "@/helpers/colorGradient";
 import { useTheme } from "../theme-provider";
 
 export const Toolbar = () => {
@@ -12,7 +12,6 @@ export const Toolbar = () => {
 
   const setColorTheme = (hexColor: string) => {
     const colors = generateGradientFromColor(hexColor);
-    // settings.setColors(colors);
     setColors(colors);
   };
 
