@@ -1,8 +1,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
+    --color-50: 233, 245, 255;
+    --color-100: 216, 235, 255;
+    --color-200: 184, 217, 255;
+    --color-300: 142, 190, 255;
+    --color-400: 97, 149, 255;
+    --color-500: 61, 109, 255;
+    --color-600: 28, 66, 255;
+    --color-700: 17, 50, 241;
+    --color-800: 18, 48, 202;
+    --color-900: 24, 48, 151;
+    --color-950: 14, 26, 88;
+
     --background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
     --card: 0 0% 100%;
@@ -78,5 +91,6 @@
   }
   body {
     @apply bg-background text-foreground;
+    color: var(--dynamic-text-color);
   }
 }
