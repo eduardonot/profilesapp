@@ -17,15 +17,15 @@ jobs:
       - name: Setting environment variables
         run: |
           echo "AWS_DEFAULT_REGION=us-east-1" >> $GITHUB_ENV
-          echo "AWS_SG_NAME='Acesso Web'" >> $GITHUB_ENV
+          echo "AWS_SG_ID=sg-0c55b38d291984417" >> $GITHUB_ENV
 
       - name: Add Github Actions IP to Security group
         run: |
-          aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32    
+          aws ec2 authorize-security-group-ingress --group-id ${{ env.AWS_SG_ID }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32    
           env:
             AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
             AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            AWS_DEFAULT_REGION: us-east-1
+            AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
 
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -56,7 +56,7 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "us-east-1"
+          AWS_REGION: ${{ env.AWS_DEFAULT_REGION }}
         run: |
           scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@98.82.102.189:/path/to/your/deployment/folder
 
