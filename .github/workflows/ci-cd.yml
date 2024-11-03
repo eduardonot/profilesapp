@@ -10,6 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get Github action IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: Setting environment variables
+        run: |
+          echo "AWS_DEFAULT_REGION=us-east-1" &gt;&gt; $GITHUB_ENV
+          echo "AWS_SG_NAME=Acesso Web" &gt;&gt; $GITHUB_ENV
+
+      - name: Add Github Actions IP to Security group
+        run: |
+          aws ec2 authorize-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32    
+          env:
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+
       - name: Checkout Code
         uses: actions/checkout@v3
 
@@ -42,3 +59,12 @@ jobs:
           AWS_REGION: "us-east-1"
         run: |
           scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@98.82.102.189:/path/to/your/deployment/folder
+
+      - name: Remove Github Actions IP from security group
+        run: |
+          aws ec2 revoke-security-group-ingress --group-name ${{ env.AWS_SG_NAME }} --protocol tcp --port 22 --cidr ${{ steps.ip.outputs.ipv4 }}/32
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
+        if: always()
