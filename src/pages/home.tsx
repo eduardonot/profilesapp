@@ -65,7 +65,7 @@ export const HomePage = () => {
   return (
     <main className="container p-2">
       <section className="flex justify-between">
-        {Array.from({ length: 11 }).map((item, index: number) => {
+        {Array.from({ length: 11 }).map((_item, index: number) => {
           return (
             <div
               className={`w-[100px] h-[100px]`}
