@@ -65,7 +65,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ env.AWS_DEFAULT_REGION }}
         run: |
-          scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@98.82.102.189:/path/to/your/deployment/folder
+          scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@98.82.102.189:/opt/bitnami/nginx/html
 
       - name: Remove Github Actions IP from security group
         run: |
