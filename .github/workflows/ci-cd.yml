@@ -41,4 +41,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: "us-east-1"
         run: |
-          scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@ec2-98-82-102-189.compute-1.amazonaws.com:/path/to/your/deployment/folder
+          scp -o StrictHostKeyChecking=no -i ssh_key.pem -r dist/* bitnami@98.82.102.189:/path/to/your/deployment/folder
