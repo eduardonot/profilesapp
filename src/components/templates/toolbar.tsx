@@ -16,7 +16,7 @@ export const Toolbar = () => {
   };
 
   return (
-    <div className="flex w-full justify-between p-4 shadow-md">
+    <div className="bg-user-100/[0.3] w-full flex justify-between p-4 shadow-sm shadow-user-200/80">
       <section>
         <Avatar>
           <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
@@ -24,7 +24,7 @@ export const Toolbar = () => {
         </Avatar>
       </section>
       <section>
-        <h1 className="">3LO</h1>
+        <h1 className="font-semibold text-user-900">3LO</h1>
       </section>
       <section className="flex gap-2">
         <Popover>
