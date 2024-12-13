@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body, #root {
+  height: 100%
+}
+
 @layer base {
   :root {
     --color-50: 233, 245, 255;
