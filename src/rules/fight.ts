@@ -67,8 +67,8 @@ const giveAttack = (
   targetStats: SubAttributes,
   isCharacterMage: boolean
 ): DamageStatus => {
-  const doesAttackHit = getRandomNumber() >= targetStats.evasionChance;
-  const isCritical = characterStats.criticalChance >= getRandomNumber();
+  const doesAttackHit = getRandomNumber() >= targetStats.evasionRate;
+  const isCritical = characterStats.criticalRate >= getRandomNumber();
   let damage = 0;
   let criticalMultiplier = 1;
 
