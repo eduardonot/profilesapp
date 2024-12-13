@@ -1,3 +1,5 @@
+import { CharacterStatusShort } from "@/components/templates/character/character-status-short";
+import { Toolbar } from "@/components/templates/toolbar";
 import { useTheme } from "@/components/theme-provider";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 export function CardWithForm() {
   const navigate = useNavigate();
   return (
-    <Card className="">
+    <Card>
       <CardHeader>
         <CardTitle>Create project</CardTitle>
         <CardDescription>Deploy your new project in one-click.</CardDescription>
@@ -63,28 +65,31 @@ export const HomePage = () => {
   const { colors } = useTheme();
 
   return (
-    <main className="container p-2">
-      <section className="flex justify-between">
-        {Array.from({ length: 11 }).map((_item, index: number) => {
-          return (
-            <div
-              className={`w-[100px] h-[100px]`}
-              style={{
-                backgroundColor: `${colors[index]}`,
-              }}
-              key={index}
-            >
-              {colors[index]}
-            </div>
-          );
-        })}
-      </section>
-      <section className="grid grid-cols-4 gap-2">
-        <CardWithForm />
-        <CardWithForm />
-        <CardWithForm />
-        <CardWithForm />
-      </section>
+    <main>
+      <Toolbar />
+      <div className="container p-2">
+        <section className="flex justify-between">
+          {Array.from({ length: 11 }).map((_item, index: number) => {
+            return (
+              <div
+                className={`w-[100px] h-[100px]`}
+                style={{
+                  backgroundColor: `${colors[index]}`,
+                }}
+                key={index}
+              >
+                {colors[index]}
+              </div>
+            );
+          })}
+        </section>
+        <section className="grid grid-cols-4 gap-2">
+          <CharacterStatusShort />
+          <CardWithForm />
+          <CardWithForm />
+          <CardWithForm />
+        </section>
+      </div>
     </main>
   );
 };
