@@ -6,6 +6,7 @@ import {
   InventoryPage,
   LoginPage,
   NotFoundPage,
+  SignupPage,
   StorePage,
 } from "../pages/index";
 
@@ -38,6 +39,11 @@ export const routes = createBrowserRouter([
   {
     path: "/fight",
     element: <FightPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignupPage />,
     errorElement: <NotFoundPage />,
   },
   {
