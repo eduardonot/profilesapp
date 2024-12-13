@@ -8,14 +8,18 @@ export const baseDamageCalculator = (baseDamage: number): number => {
   return damage;
 };
 
+export const rateCalculator = (value: number, limit: number) => {
+  return value > limit ? limit : value;
+};
+
 export const calculateSubAttributes = (
   attributes: Attributes
 ): SubAttributes => {
   return {
     healthPoints: 2 * attributes.constitution,
     recovery: 1.1 * attributes.constitution,
-    criticalChance: 0.5 * attributes.dexterity,
-    evasionChance: 0.5 * attributes.dexterity,
+    criticalRate: rateCalculator(0.1 * attributes.dexterity, 100),
+    evasionRate: rateCalculator(0.1 * attributes.dexterity, 50),
     speed: 1 * attributes.dexterity,
     physicalDamage: baseDamageCalculator(2 * attributes.strength),
     physicalResistence: 1 * attributes.strength,
