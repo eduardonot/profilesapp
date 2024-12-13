@@ -14,7 +14,7 @@ const rgbToHex = (r: number, g: number, b: number) => {
   );
 };
 
-function isWhiteSpectrum(hexColor: string, tolerance: number = 30): boolean {
+function isWhiteSpectrum(hexColor: string, tolerance: number = 175): boolean {
   hexColor = hexColor.replace("#", "");
 
   const red: number = parseInt(hexColor.substring(0, 2), 16);
@@ -36,7 +36,7 @@ export const generateGradientFromColor = (
   const rgbBase = hexToRgb(baseColor);
   const gradient = [];
 
-  const isCloseToWhite = isWhiteSpectrum(baseColor, 150);
+  const isCloseToWhite = isWhiteSpectrum(baseColor);
 
   const colorRange = isCloseToWhite ? 1 : 255;
   const factorMultiplier = isCloseToWhite ? 1 : 1;

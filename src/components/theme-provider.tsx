@@ -1,7 +1,8 @@
 import { hexToRgb } from "@/helpers/hexToRgb";
+import { rgbToHsl } from "@/helpers/rgbToHsl";
 import { createContext, useContext, useEffect, useState } from "react";
 
-type Theme = "dark" | "light" | "system";
+type Theme = "dark" | "light";
 
 type ThemeProviderProps = {
   children: React.ReactNode;
@@ -31,7 +32,7 @@ const defaultColors = [
 ];
 
 const initialState: ThemeProviderState = {
-  theme: "system",
+  theme: "light",
   setTheme: () => null,
   colors: defaultColors,
   setColors: () => null,
@@ -41,12 +42,12 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "dark",
   storageKey = "ui-theme",
   ...props
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
+    (localStorage.getItem(storageKey) as Theme) ?? defaultTheme
   );
 
   const [colors, setColors] = useState<string[]>(defaultColors);
@@ -54,17 +55,28 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement;
 
+    const hslConverter = (rbg: string, colorShiftAmount?: number): string => {
+      const selectedRgb = hexToRgb(rbg)
+        .replaceAll(" ", "")
+        .split(",")
+        .map((i) => parseInt(i));
+
+      return rgbToHsl(
+        selectedRgb[0],
+        selectedRgb[1],
+        selectedRgb[2],
+        colorShiftAmount
+      );
+    };
+
+    const firstColor = `hsl(${hslConverter(colors[0], 500)})`;
+    const secondColor = `hsl(${hslConverter(colors[0], 400)})`;
+
+    console.log({ firstColor, secondColor });
+
+    const gradient = `radial-gradient(${firstColor}, ${secondColor})`;
+
     root.classList.remove("light", "dark");
-
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
-    }
     root.classList.add(theme);
 
     root.style.setProperty("--color-50", hexToRgb(colors[0]));
@@ -79,7 +91,14 @@ export function ThemeProvider({
     root.style.setProperty("--color-900", hexToRgb(colors[9]));
     root.style.setProperty("--color-950", hexToRgb(colors[10]));
 
-    root.style.setProperty("--background", hexToRgb(colors[0]));
+    // root.style.setProperty(
+    //   "--background",
+    //   theme === "dark" ? "0, 0, 0" : "255, 255, 255"
+    // );
+    // root.style.setProperty("--background", hexToRgb(colors[0]));
+    // root.style.setProperty("--background", gradient);
+    document.body.style.background = gradient;
+
     root.style.setProperty("--foreground", hexToRgb(colors[10]));
 
     root.style.setProperty("--card", hexToRgb(colors[0]));
