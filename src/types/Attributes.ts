@@ -8,8 +8,8 @@ export type Attributes = {
 export type SubAttributes = {
   healthPoints: number; // CON
   recovery: number; // CON
-  criticalChance: number; // DEX
-  evasionChance: number; // DEX
+  criticalRate: number; // DEX
+  evasionRate: number; // DEX
   speed: number; // DEX
   physicalDamage: number; //STR
   physicalResistence: number; // STR
